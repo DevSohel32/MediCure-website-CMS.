@@ -1,0 +1,41 @@
+* {
+    direction: rtl!important;
+}
+.main-sidebar {
+    right: 0!important;
+    left: auto!important;
+}
+.navbar {
+    left: 5px;
+    right: 250px;
+}
+.navbar-bg {
+    right: 0;
+    left: auto;
+}
+.main-content {
+    padding-left: 30px;
+    padding-right: 280px;
+}
+.dropdown-menu-end[data-bs-popper] {
+    left: 0;
+    right: auto;
+}
+.dropdown-menu-end[data-bs-popper] li {
+    text-align: right;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: left;
+}
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-right: 0.5em;
+    margin-left: 0;
+}
+table.table-bordered.dataTable th:last-child, 
+table.table-bordered.dataTable td:last-child {
+    border-left-width: 1px;
+    border-right-width: 1px;
+}
+.modal-header .btn-close {
+    margin-left: 0;
+}

@@ -1,0 +1,184 @@
+* {
+    direction: rtl!important;
+}
+.tgmenu__navbar-wrap > ul > li {
+    margin-right: 0;
+    margin-left: 50px;
+}
+.tgmenu__main-menu li.menu-item-has-children > a::after {
+    margin-right: 4px;
+    margin-left: 0;
+}
+.tgmenu__navbar-wrap > ul > li .sub-menu {
+    left: auto;
+    right: 0;
+}
+.hero-slider1 .slider-pagination2 {
+    left: calc((100% - 1320px) / 2);
+    right: auto;
+}
+.hero-slider1 .slider-pagination2 .custom-page {
+    text-align: center!important;
+}
+.hero-slider1 .swiper-slide:before {
+    background: linear-gradient(90deg, rgba(34, 44, 49, 0) 50.56%, #222C31 100%);
+}
+.hero-slider1 .swiper-slide:after {
+    background: linear-gradient(90deg, rgba(34, 44, 49, 0) 0%, #222C31 100%);
+}
+.hero-slider1 .swiper-slide .hero-bg-shape1-1 {
+    left: 0;
+    right: auto;
+}
+.about-thumb2-1 {
+    padding-right: 0;
+    padding-left: 185px;
+}
+.about-thumb2-1 .img2 {
+    right: auto;
+    left: 0;
+}
+.image-anim:before {
+    left: auto;
+    right: 50%;
+}
+.about-thumb2-1 .about-bg-shape2-1 {
+    left: 60px;
+    right: auto;
+}
+.checklist-wrap .list-wrap li {
+    padding-right: 30px;
+    padding-left: 0;
+}
+.checklist-wrap .list-wrap li:before {
+    right: 0;
+    left: auto;
+}
+
+.testimonial-card3 .testimonial-author-card3 .testimonial-quote-icon {
+    margin-right: auto;
+    margin-left: 0;
+}
+.link-btn i {
+    transform: rotate(180deg);
+}
+.footer__newsletter-form .form-icon {
+    right: 20px;
+    left: auto;
+}
+.footer__newsletter-form .btn {
+    left: 10px;
+    right: auto;
+}
+.footer__newsletter-form input {
+    padding-right: 70px;
+    padding-left: 130px;
+}
+.service-card .box-img .tg-button-wrap .btn i {
+    transform: rotate(180deg);
+}
+.pagination__wrap .page-numbers svg {
+    transform: rotate(180deg);
+}
+.widget-title:after {
+    right: 0;
+    left: auto;
+}
+.btn-two i {
+    transform: rotate(180deg);
+}
+.tgmenu__navbar-wrap > ul > li .sub-menu > li {
+    text-align: right;
+}
+.appointment-wrap2 .appointment-thumb2 {
+    right: 0;
+    left: auto;
+}
+.form-control.style-border3,
+.form-select.style-border3 {
+    padding-left: 25px;
+    padding-right: 50px;
+}
+.accordion-card .accordion-button {
+    padding-left: 45px;
+    padding-right: 0;
+    text-align: right;
+}
+.accordion-card .accordion-button:after {
+    left: 2px;
+    right: auto;
+}
+.tg-button-wrap i {
+    transform: rotate(180deg);
+}
+.pricing-card_price {
+    right: 0;
+    left: auto;
+    border-radius: 20px 0 0 0;
+}
+.pricing-card .checklist li i {
+    margin-left: 12px;
+    margin-right: 0;
+}
+.sidebar-search-form button {
+    left: 0;
+    right: auto;
+}
+.sidebar-search-form input {
+    padding-right: 25px;
+    padding-left: 65px;
+}
+.sidebar-cat-list .list-wrap li a span {
+    margin-right: auto;
+    margin-left: 0;
+}
+.sidebar-cat-list .list-wrap li a span i {
+    transform: rotate(180deg);
+}
+.blog__post-item .blog__post-date {
+    right: 40px;
+    left: auto;
+}
+.blog__post-item .blog__post-meta {
+    padding-right: 120px;
+    padding-left: 10px;
+}
+.blog__details-content-bottom .blog-post-share {
+    justify-content: right;
+}
+.blog-avatar-wrap .blog-avatar-img {
+    margin-left: 30px;
+    margin-right: 0;
+}
+.form-group .form-icon-left {
+    right: 25px;
+    left: auto;
+}
+.form-group:has(.form-icon-left) input,
+.form-group:has(.form-icon-left) textarea {
+    padding-right: 50px;
+    padding-left: 25px;
+}
+.modal-header .btn-close {
+    margin-left: 0;
+}
+.comment .comment-box .left img {
+    margin-left: 10px;
+    margin-right: 0;
+}
+.comment .comment-box .left {
+    float: right;
+}
+.comment .reply-box {
+    padding-left: 0;
+    padding-right: 100px;
+}
+.footer__links .list-wrap li a svg {
+    right: 0!important;
+    left: auto!important;
+    transform: rotate(180deg);
+}
+.scroll__top {
+    left: 50px;
+    right: auto;
+}
