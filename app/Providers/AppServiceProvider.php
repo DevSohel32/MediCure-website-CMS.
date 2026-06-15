@@ -27,10 +27,16 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         // use view share to globally setup data
-        $page_item = PageItem::where('id', 1)->first();
-        $setting = Setting::where('id', 1)->first();
+        try {
+            $page_item = PageItem::where('id', 1)->first();
+            $setting = Setting::where('id', 1)->first();
 
-        View::share('global_page_item', $page_item);
-        View::share('global_setting', $setting);
+            View::share('global_page_item', $page_item);
+            View::share('global_setting', $setting);
+        } catch (\Exception $e) {
+            // Handle database not ready (e.g., during migrations or tests)
+            View::share('global_page_item', null);
+            View::share('global_setting', null);
+        }
     }
 }
