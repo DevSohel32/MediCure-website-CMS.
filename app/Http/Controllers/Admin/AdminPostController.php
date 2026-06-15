@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SharedDynamicFormRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Reply;
 use App\Models\PostCategory;
-use Hash;
-use Auth;
+
 
 class AdminPostController extends Controller
 {
@@ -25,41 +25,23 @@ class AdminPostController extends Controller
         return view('admin.post.create', compact('post_categories'));
     }
 
-    public function store(Request $request)
+    public function store(SharedDynamicFormRequest $request)
     {
         if(env('PROJECT_MODE') == 0) {
             return redirect()->back()->with('info', env('PROJECT_NOTIFICATION'));
         }
 
-        $request->validate([
-            'title' => 'required',
-            'slug' => 'required|regex:/^[a-z0-9-]+$/|unique:posts',
-            'short_description' => 'required',
-            'description' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        $request->merge(['table_name' => 'posts']);
 
-        if($request->tags == null) {
-            $tags = '';
-        } else {
-            $tagsArray = array_filter($request->tags, function ($t) { return trim($t) !== ''; });
-            $tags = implode(',', $tagsArray);
-        }
+        $tags = $request->tags ? implode(',', array_filter($request->tags, 'trim')) : '';
 
         $obj = new Post();
+           if($request->hasFile('photo')){
+               $obj->photo = $this->uploadPhoto($request, 'photo');
+           }
 
-        $final_name = 'post_'.time().'.'.$request->photo->extension();
-        $request->photo->move(public_path('uploads'), $final_name);
-        $obj->photo = $final_name;
 
-        $obj->post_category_id = $request->post_category_id;
-        $obj->title = $request->title;
-        $obj->slug = $request->slug;
-        $obj->short_description = $request->short_description;
-        $obj->description = $request->description;
-        $obj->tags = $tags;
-        $obj->seo_title = $request->seo_title;
-        $obj->seo_meta_description = $request->seo_meta_description;
+       $obj->fill($request->validated());
         $obj->save();
 
         return redirect()->route('admin_post_index')->with('success', __('Data is created successfully'));
@@ -75,53 +57,29 @@ class AdminPostController extends Controller
         return view('admin.post.edit', compact('post', 'post_categories', 'post_tags'));
     }
 
-    public function update(Request $request, $id)
+    public function update(SharedDynamicFormRequest $request, $id)
     {
         if(env('PROJECT_MODE') == 0) {
             return redirect()->back()->with('info', env('PROJECT_NOTIFICATION'));
         }
 
-        $request->validate([
-            'title' => 'required',
-            'slug' => 'required|regex:/^[a-z0-9-]+$/|unique:posts,slug,'.$id,
-            'short_description' => 'required',
-            'description' => 'required',
-        ]);
-
-        if($request->tags == null) {
-            $tags = '';
-        } else {
-            $tagsArray = array_filter($request->tags, function ($t) { return trim($t) !== ''; });
-            $tags = implode(',', $tagsArray);
-        }
+        $request->merge(['table_name' => 'posts']);
 
         $obj = Post::where('id',$id)->first();
 
-        if($request->photo)
-        {
-            $request->validate([
-                'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
-            $final_name = 'post_'.time().'.'.$request->photo->extension();
-            if($obj->photo != '') {
-                unlink(public_path('uploads/'.$obj->photo));
-            }
-            $request->photo->move(public_path('uploads'), $final_name);
-            $obj->photo = $final_name;
+        if($request->hasFile('photo')) {
+           $obj->photo = $this->uploadPhoto($request, 'photo', $obj->photo);
         }
 
-        $obj->post_category_id = $request->post_category_id;
-        $obj->title = $request->title;
-        $obj->slug = $request->slug;
-        $obj->short_description = $request->short_description;
-        $obj->description = $request->description;
-        $obj->tags = $tags;
-        $obj->seo_title = $request->seo_title;
-        $obj->seo_meta_description = $request->seo_meta_description;
+
+        $obj->fill($request->validated());
         $obj->save();
 
         return redirect()->route('admin_post_index')->with('success', __('Data is updated successfully'));
     }
+
+
+
 
     public function destroy($id)
     {
@@ -214,7 +172,7 @@ class AdminPostController extends Controller
         if(env('PROJECT_MODE') == 0) {
             return redirect()->back()->with('info', env('PROJECT_NOTIFICATION'));
         }
-        
+
         $request->validate([
             'reply' => 'required',
         ]);
@@ -227,5 +185,19 @@ class AdminPostController extends Controller
         $reply->save();
 
         return redirect()->back()->with('success','Reply submitted successfully');
+    }
+
+   protected function uploadPhoto($request, $fieldKey, $oldFileName = null)
+    {
+        $file = $request->file($fieldKey);
+        $final_name = 'department_' . time() . '.' . $file->extension();
+
+        if (!empty($oldFileName) && file_exists(public_path('uploads/' . $oldFileName))) {
+            unlink(public_path('uploads/' . $oldFileName));
+        }
+
+        $file->move(public_path('uploads'), $final_name);
+
+        return $final_name;
     }
 }
